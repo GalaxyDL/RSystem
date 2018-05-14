@@ -4,21 +4,23 @@ import bean.Request;
 import bean.Response;
 import handler.RequestHandler;
 import handler.RequestHandlerFactory;
+import threadLocal.ThreadLocal;
 
-public class Service {
+public class Service implements IService{
     private static Service mInstance = new Service();
-    private RequestHandler handler;
+    private ThreadLocal<RequestHandler> threadLocal;
 
     public static Service getInstance() {
         return mInstance;
     }
 
     private Service() {
-        handler = RequestHandlerFactory.getHandler();
+        threadLocal = new ThreadLocal<>();
+        threadLocal.setDefaultValueFactory(RequestHandlerFactory::getHandler);
     }
 
     public Response post(Request request) {
-        return handler.handle(request);
+        return threadLocal.get().handle(request);
     }
 
 }
