@@ -1,7 +1,7 @@
-package processor;
+package com.galaxydl.rSystem.processor;
 
-import bean.Request;
-import bean.Response;
+import com.galaxydl.rSystem.bean.Request;
+import com.galaxydl.rSystem.bean.Response;
 
 public class ProcessorChain implements Chain {
     private Processor head;

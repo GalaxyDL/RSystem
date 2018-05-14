@@ -1,4 +1,4 @@
-package bean;
+package com.galaxydl.rSystem.bean;
 
 import java.util.List;
 

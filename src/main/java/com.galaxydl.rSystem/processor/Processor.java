@@ -1,7 +1,7 @@
-package processor;
+package com.galaxydl.rSystem.processor;
 
-import bean.Request;
-import bean.Response;
+import com.galaxydl.rSystem.bean.Request;
+import com.galaxydl.rSystem.bean.Response;
 
 public abstract class Processor {
     private Processor next;

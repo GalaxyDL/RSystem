@@ -1,6 +1,6 @@
-package bean;
+package com.galaxydl.rSystem.bean;
 
-public class ResponseCode {
+public final class ResponseCode {
     public static final int OK = 200;
     public static final int BAD_REQUEST = 400;
     public static final int NOT_FOUND = 404;

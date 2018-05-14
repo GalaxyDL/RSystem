@@ -1,10 +1,10 @@
-package service;
+package com.galaxydl.rSystem.service;
 
-import bean.Request;
-import bean.Response;
-import handler.RequestHandler;
-import handler.RequestHandlerFactory;
-import threadLocal.ThreadLocal;
+import com.galaxydl.rSystem.bean.Request;
+import com.galaxydl.rSystem.bean.Response;
+import com.galaxydl.rSystem.handler.RequestHandler;
+import com.galaxydl.rSystem.handler.RequestHandlerFactory;
+import com.galaxydl.rSystem.threadLocal.ThreadLocal;
 
 public class Service implements IService{
     private static Service mInstance = new Service();

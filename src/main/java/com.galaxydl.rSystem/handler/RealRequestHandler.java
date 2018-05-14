@@ -1,9 +1,9 @@
-package handler;
+package com.galaxydl.rSystem.handler;
 
-import bean.Request;
-import bean.Response;
-import processor.Chain;
-import processor.ProcessorChain;
+import com.galaxydl.rSystem.bean.Request;
+import com.galaxydl.rSystem.bean.Response;
+import com.galaxydl.rSystem.processor.Chain;
+import com.galaxydl.rSystem.processor.ProcessorChain;
 
 public class RealRequestHandler implements RequestHandler {
     private Chain chain;

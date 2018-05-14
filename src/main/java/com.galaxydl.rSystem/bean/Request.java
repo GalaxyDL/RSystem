@@ -1,4 +1,4 @@
-package bean;
+package com.galaxydl.rSystem.bean;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package bean;
+package com.galaxydl.rSystem.bean;
 
 public final class Response {
     private int responseCode;
