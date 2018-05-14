@@ -1,21 +1,21 @@
 package bean;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public final class ECG {
-    private ArrayList<Integer> signal;
+    private List<Integer> signal;
     private int offset;
 
-    public ECG(ArrayList<Integer> signal, int offset) {
+    public ECG(List<Integer> signal, int offset) {
         this.signal = signal;
         this.offset = offset;
     }
 
-    public ArrayList<Integer> getSignal() {
+    public List<Integer> getSignal() {
         return signal;
     }
 
-    public void setSignal(ArrayList<Integer> signal) {
+    public void setSignal(List<Integer> signal) {
         this.signal = signal;
     }
 
