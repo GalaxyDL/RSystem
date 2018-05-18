@@ -10,29 +10,29 @@ public final class ThreadLocal<T> {
     private DefaultValueFactory<T> defaultValueFactory = nullValueFactory;
 
     @FunctionalInterface
-    public interface DefaultValueFactory<T>{
+    public interface DefaultValueFactory<T> {
         T getDefaultValue();
     }
 
-    public ThreadLocal(){
+    public ThreadLocal() {
         map = new WeakHashMap<>();
     }
 
-    public T get(){
+    public T get() {
         Thread currentThread = Thread.currentThread();
         T result = map.get(currentThread);
-        if(result == null){
+        if (result == null) {
             result = defaultValueFactory.getDefaultValue();
             map.put(currentThread, result);
         }
         return result;
     }
 
-    public void put(T value){
+    public void put(T value) {
         Thread currentThread = Thread.currentThread();
-        if(map.containsKey(currentThread)){
+        if (map.containsKey(currentThread)) {
             map.replace(currentThread, value);
-        }else {
+        } else {
             map.put(currentThread, value);
         }
     }

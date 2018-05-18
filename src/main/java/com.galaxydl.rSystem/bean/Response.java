@@ -6,7 +6,7 @@ public final class Response {
     private RWave rWave;
 
 
-    public Response(){
+    public Response() {
 
     }
 

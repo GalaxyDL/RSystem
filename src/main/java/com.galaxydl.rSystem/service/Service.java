@@ -6,7 +6,7 @@ import com.galaxydl.rSystem.handler.RequestHandler;
 import com.galaxydl.rSystem.handler.RequestHandlerFactory;
 import com.galaxydl.rSystem.threadLocal.ThreadLocal;
 
-public class Service implements IService{
+public class Service implements IService {
     private static Service mInstance = new Service();
     private ThreadLocal<RequestHandler> threadLocal;
 
