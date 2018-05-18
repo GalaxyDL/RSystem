@@ -7,6 +7,10 @@ public final class ECG {
     private List<Integer> signal;
     private int offset;
 
+    public ECG(int id) {
+        this.id = id;
+    }
+
     public ECG(int id, List<Integer> signal, int offset) {
         this.id = id;
         this.signal = signal;
