@@ -9,6 +9,15 @@ import java.util.Scanner;
 
 public class ECGFileHandler extends BaseFileHandler<ECG> {
     private static final String EXTENSION = ".ECG";
+    private static final ECGFileHandler INSTANCE = new ECGFileHandler();
+
+    public static ECGFileHandler getHandler() {
+        return INSTANCE;
+    }
+
+    private ECGFileHandler() {
+
+    }
 
     @Override
     public ECG read(int id) {

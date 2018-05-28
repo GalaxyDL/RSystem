@@ -4,9 +4,14 @@ import com.galaxydl.rSystem.bean.ECG;
 
 public final class ECGPersistenceHelper implements IPersistenceHelper<ECG> {
     private IFileHandler<ECG> fileHandler;
+    private static final ECGPersistenceHelper INSTANCE = new ECGPersistenceHelper();
 
-    public ECGPersistenceHelper() {
-        fileHandler = new ECGFileHandler();
+    private ECGPersistenceHelper() {
+        fileHandler = ECGFileHandler.getHandler();
+    }
+
+    public static ECGPersistenceHelper getHelper() {
+        return INSTANCE;
     }
 
     @Override

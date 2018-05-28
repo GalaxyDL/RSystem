@@ -4,9 +4,14 @@ import com.galaxydl.rSystem.bean.RWave;
 
 public final class RWavePersistenceHelper implements IPersistenceHelper<RWave> {
     private IFileHandler<RWave> fileHandler;
+    private final static RWavePersistenceHelper INSTANCE = new RWavePersistenceHelper();
 
-    public RWavePersistenceHelper() {
-        fileHandler = new RWaveFileHandler();
+    private RWavePersistenceHelper() {
+        fileHandler = RWaveFileHandler.getHandler();
+    }
+
+    public static RWavePersistenceHelper getHelper() {
+        return INSTANCE;
     }
 
     @Override

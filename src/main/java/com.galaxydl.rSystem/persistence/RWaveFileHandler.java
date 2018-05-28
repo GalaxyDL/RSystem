@@ -9,6 +9,15 @@ import java.util.Scanner;
 
 public class RWaveFileHandler extends BaseFileHandler<RWave> {
     private static final String EXTENSION = ".RW";
+    private static final RWaveFileHandler INSTANCE = new RWaveFileHandler();
+
+    public static RWaveFileHandler getHandler() {
+        return INSTANCE;
+    }
+
+    private RWaveFileHandler() {
+
+    }
 
     @Override
     public RWave read(int id) {
@@ -24,7 +33,7 @@ public class RWaveFileHandler extends BaseFileHandler<RWave> {
         if (scanner == null) {
             return null;
         }
-        RWave rWave = new RWave();
+        RWave rWave = new RWave(id);
         int length;
         if (!scanner.hasNextInt()) {
             return null;
