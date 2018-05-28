@@ -5,7 +5,6 @@ public final class Response {
     private ECG ecg;
     private RWave rWave;
 
-
     public Response() {
 
     }
@@ -30,11 +29,11 @@ public final class Response {
         this.ecg = ecg;
     }
 
-    public RWave getrWave() {
+    public RWave getRWave() {
         return rWave;
     }
 
-    public void setrWave(RWave rWave) {
+    public void setRWave(RWave rWave) {
         this.rWave = rWave;
     }
 }

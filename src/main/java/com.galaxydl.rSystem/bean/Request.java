@@ -42,7 +42,7 @@ public final class Request {
         return files;
     }
 
-    public class Builder {
+    public static class Builder {
         int method;
         int target;
         ArrayList<String> args;
