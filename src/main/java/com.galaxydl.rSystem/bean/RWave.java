@@ -13,11 +13,11 @@ public final class RWave {
         this.positions = positions;
     }
 
-    public List<Integer> getPostions() {
+    public List<Integer> getPositions() {
         return positions;
     }
 
-    public void setPostions(List<Integer> postions) {
+    public void setPositions(List<Integer> postions) {
         this.positions = postions;
     }
 }

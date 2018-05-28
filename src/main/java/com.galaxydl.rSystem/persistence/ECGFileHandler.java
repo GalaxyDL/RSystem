@@ -3,6 +3,7 @@ package com.galaxydl.rSystem.persistence;
 import com.galaxydl.rSystem.bean.ECG;
 
 import java.io.*;
+import java.nio.channels.FileLock;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,6 +13,13 @@ public class ECGFileHandler extends BaseFileHandler<ECG> {
     @Override
     public ECG read(int id) {
         File file = openFile(id);
+        FileLock fileLock;
+        try {
+            fileLock = getFileChannel(file).lock(0L, Long.MAX_VALUE, true);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
         Scanner scanner = getScanner(file);
         if (scanner == null) {
             return null;
@@ -27,12 +35,24 @@ public class ECGFileHandler extends BaseFileHandler<ECG> {
             list.add(scanner.nextInt());
         }
         ecg.setSignal(list);
+        try {
+            fileLock.release();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return ecg;
     }
 
     @Override
-    public synchronized boolean write(int id, ECG ecg) {
+    public boolean write(int id, ECG ecg) {
         File file = openFile(id);
+        FileLock fileLock;
+        try {
+            fileLock = getFileChannel(file).lock(0L, Long.MAX_VALUE, false);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
         Writer writer = getWriter(file);
         if (writer == null) {
             return false;
@@ -43,10 +63,16 @@ public class ECGFileHandler extends BaseFileHandler<ECG> {
                 writer.write(i);
             }
             writer.flush();
-            writer.close();
             return true;
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                fileLock.release();
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return false;
     }

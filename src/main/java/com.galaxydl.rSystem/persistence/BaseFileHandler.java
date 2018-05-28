@@ -1,6 +1,7 @@
 package com.galaxydl.rSystem.persistence;
 
 import java.io.*;
+import java.nio.channels.FileChannel;
 import java.util.Scanner;
 
 public abstract class BaseFileHandler<T> implements IFileHandler<T> {
@@ -12,7 +13,7 @@ public abstract class BaseFileHandler<T> implements IFileHandler<T> {
     }
 
     @Override
-    public abstract T read(int id);
+    public abstract T read(int id) throws IOException;
 
     @Override
     public abstract boolean write(int id, T object);
@@ -22,7 +23,7 @@ public abstract class BaseFileHandler<T> implements IFileHandler<T> {
         return fileHelper.delete(getPath(id));
     }
 
-    public File openFile(int id) {
+    protected File openFile(int id) {
         File file = null;
         try {
             file = fileHelper.open(getPath(id));
@@ -32,7 +33,7 @@ public abstract class BaseFileHandler<T> implements IFileHandler<T> {
         return file;
     }
 
-    public Scanner getScanner(File file) {
+    protected Scanner getScanner(File file) {
         Scanner scanner = null;
         try {
             scanner = new Scanner(new FileInputStream(file));
@@ -42,7 +43,7 @@ public abstract class BaseFileHandler<T> implements IFileHandler<T> {
         return scanner;
     }
 
-    public Writer getWriter(File file) {
+    protected Writer getWriter(File file) {
         Writer writer = null;
         try {
             writer = new FileWriter(file);
@@ -52,7 +53,16 @@ public abstract class BaseFileHandler<T> implements IFileHandler<T> {
         return writer;
     }
 
-    public abstract String getExtension();
+    protected FileChannel getFileChannel(File file) {
+        try {
+            return new FileInputStream(file).getChannel();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    protected abstract String getExtension();
 
     private String getPath(int id) {
         return id + getExtension();
