@@ -13,7 +13,7 @@ public abstract class BaseFileHandler<T> implements IFileHandler<T> {
     }
 
     @Override
-    public abstract T read(int id) throws IOException;
+    public abstract T read(int id);
 
     @Override
     public abstract boolean write(int id, T object);

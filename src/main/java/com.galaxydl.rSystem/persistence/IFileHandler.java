@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public interface IFileHandler<T> {
 
-    T read(int id) throws IOException;
+    T read(int id);
 
     boolean write(int id, T object);
 
