@@ -1,24 +1,26 @@
 package com.galaxydl.rSystem.persistence;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.*;
 import java.nio.channels.FileChannel;
 import java.util.Scanner;
 
 public abstract class BaseFileHandler<T> implements IFileHandler<T> {
     private static final String DIRECTORY = "C:/Users/Galaxy/IdeaProjects/RSystem/data/";
-    private static final String DIRECTORY_CAN_NOT_CREATED = "can not create ./data/";
+    private static final String DIRECTORY_CAN_NOT_CREATED = "can not create " + DIRECTORY;
+    private Logger logger = LogManager.getLogger();
 
     private IFileHelper fileHelper;
 
     public BaseFileHandler() {
         File directory = new File(DIRECTORY);
-        System.out.println(directory.getAbsolutePath());
         if (!directory.exists()) {
             if (!directory.mkdir()) {
-                throw new RuntimeException(DIRECTORY_CAN_NOT_CREATED);
+                logger.error(DIRECTORY_CAN_NOT_CREATED);
             }
         }
-        System.out.println(directory.getAbsolutePath());
         fileHelper = new FileHelper();
     }
 
@@ -38,7 +40,7 @@ public abstract class BaseFileHandler<T> implements IFileHandler<T> {
         try {
             file = fileHelper.open(getPath(id));
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.warn("can not open file id : " + id, e);
         }
         return file;
     }
@@ -48,7 +50,7 @@ public abstract class BaseFileHandler<T> implements IFileHandler<T> {
         try {
             scanner = new Scanner(new FileInputStream(file));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            logger.warn("can not get scanner", e);
         }
         return scanner;
     }
@@ -58,7 +60,7 @@ public abstract class BaseFileHandler<T> implements IFileHandler<T> {
         try {
             writer = new FileWriter(file);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.warn("can not get writer", e);
         }
         return writer;
     }
@@ -67,7 +69,7 @@ public abstract class BaseFileHandler<T> implements IFileHandler<T> {
         try {
             return new FileInputStream(file).getChannel();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            logger.warn("can not get fileChannel", e);
         }
         return null;
     }

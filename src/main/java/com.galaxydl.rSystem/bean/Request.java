@@ -24,6 +24,12 @@ public final class Request {
         this.target = builder.target;
         this.args = builder.args;
         this.files = builder.files;
+        if (args == null) {
+            args = EMPTY_ARGS;
+        }
+        if (files == null) {
+            files = EMPTY_FILES;
+        }
     }
 
     public int getMethod() {
@@ -49,8 +55,7 @@ public final class Request {
         ArrayList<File> files;
 
         public Builder() {
-            args = EMPTY_ARGS;
-            files = EMPTY_FILES;
+
         }
 
         public Request build() {
@@ -68,11 +73,17 @@ public final class Request {
         }
 
         public Builder arg(String arg) {
+            if (args == null) {
+                args = new ArrayList<>();
+            }
             args.add(arg);
             return this;
         }
 
         public Builder file(File file) {
+            if (files == null) {
+                files = new ArrayList<>();
+            }
             files.add(file);
             return this;
         }

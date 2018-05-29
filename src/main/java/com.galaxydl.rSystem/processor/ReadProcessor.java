@@ -16,11 +16,11 @@ public class ReadProcessor extends Processor {
     @Override
     public void process(Request request, Response response) {
         switch (request.getTarget()) {
-            case Request.TARGET_R: {
+            case Request.TARGET_EGC: {
                 int id;
                 try {
                     id = Integer.parseInt(request.getArgs().get(0));
-                } catch (NumberFormatException e) {
+                } catch (NumberFormatException | IndexOutOfBoundsException e) {
                     response.setResponseCode(BAD_REQUEST);
                     break;
                 }
@@ -33,7 +33,7 @@ public class ReadProcessor extends Processor {
                 }
                 break;
             }
-            case Request.TARGET_EGC: {
+            case Request.TARGET_R: {
                 int id;
                 try {
                     id = Integer.parseInt(request.getArgs().get(0));
