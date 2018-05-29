@@ -5,10 +5,20 @@ import java.nio.channels.FileChannel;
 import java.util.Scanner;
 
 public abstract class BaseFileHandler<T> implements IFileHandler<T> {
+    private static final String DIRECTORY = "C:/Users/Galaxy/IdeaProjects/RSystem/data/";
+    private static final String DIRECTORY_CAN_NOT_CREATED = "can not create ./data/";
 
     private IFileHelper fileHelper;
 
     public BaseFileHandler() {
+        File directory = new File(DIRECTORY);
+        System.out.println(directory.getAbsolutePath());
+        if (!directory.exists()) {
+            if (!directory.mkdir()) {
+                throw new RuntimeException(DIRECTORY_CAN_NOT_CREATED);
+            }
+        }
+        System.out.println(directory.getAbsolutePath());
         fileHelper = new FileHelper();
     }
 
@@ -65,7 +75,7 @@ public abstract class BaseFileHandler<T> implements IFileHandler<T> {
     protected abstract String getExtension();
 
     private String getPath(int id) {
-        return id + getExtension();
+        return DIRECTORY + id + getExtension();
     }
 
     public IFileHelper getFileHelper() {

@@ -3,5 +3,20 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
-
+    <servlet>
+        <servlet-name>ECGServlet</servlet-name>
+        <servlet-class>com.galaxydl.rSystem.servlet.ECGServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RWareServlet</servlet-name>
+        <servlet-class>com.galaxydl.rSystem.servlet.RWareServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ECGServlet</servlet-name>
+        <url-pattern>/ecg</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RWareServlet</servlet-name>
+        <url-pattern>/r</url-pattern>
+    </servlet-mapping>
 </web-app>

@@ -8,7 +8,9 @@ public class ProcessorChain implements Chain {
 
     @Override
     public final void add(Processor processor) {
-        head.setNext(processor);
+        if (head != null) {
+            head.setNext(processor);
+        }
         head = processor;
     }
 
