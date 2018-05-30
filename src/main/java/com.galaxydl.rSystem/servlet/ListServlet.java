@@ -15,9 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import static com.galaxydl.rSystem.bean.Request.*;
+import static com.galaxydl.rSystem.bean.Request.METHOD_GET;
+import static com.galaxydl.rSystem.bean.Request.TARGET_LIST_EGCS;
 
-public class ECGServlet extends HttpServlet {
+public class ListServlet extends HttpServlet {
     private IService service;
     private Logger logger = LogManager.getLogger();
 
@@ -29,14 +30,13 @@ public class ECGServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter writer = resp.getWriter();
-        String id = req.getParameter("id");
-        logger.debug("new request id : " + id);
-        Request request = new Request.Builder().method(METHOD_GET).target(TARGET_EGC).arg(id).build();
+        logger.debug("new list request");
+        Request request = new Request.Builder().method(METHOD_GET).target(TARGET_LIST_EGCS).build();
         Response response = service.post(request);
         resp.setStatus(response.getResponseCode());
-        String body = JSON.toJSONString(response.getEcg());
+        String body = JSON.toJSONString(response.getList());
         writer.print(body);
         writer.flush();
-        logger.debug("response of id : " + id + " length : " + body.length());
+        logger.debug("response of list: length : " + body.length());
     }
 }

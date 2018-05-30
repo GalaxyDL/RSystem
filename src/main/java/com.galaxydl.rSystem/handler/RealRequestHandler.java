@@ -7,6 +7,7 @@ import com.galaxydl.rSystem.processor.Chain;
 import com.galaxydl.rSystem.processor.MethodNotAllowedProcessor;
 import com.galaxydl.rSystem.processor.ProcessorChain;
 import com.galaxydl.rSystem.processor.ReadProcessor;
+import com.galaxydl.rSystem.processor.ListProcessor;
 
 public class RealRequestHandler implements RequestHandler {
     private final BadRequestProcessor badRequestProcessor = new BadRequestProcessor();
@@ -32,7 +33,10 @@ public class RealRequestHandler implements RequestHandler {
                         chain.add(new ReadProcessor());
                         break;
                     }
-                    case Request.TARGET_LIST_EGCS:
+                    case Request.TARGET_LIST_EGCS: {
+                        chain.add(new ListProcessor());
+                        break;
+                    }
                     default:
                         chain.add(badRequestProcessor);
                 }

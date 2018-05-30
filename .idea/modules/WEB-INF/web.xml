@@ -11,6 +11,10 @@
         <servlet-name>RWareServlet</servlet-name>
         <servlet-class>com.galaxydl.rSystem.servlet.RWareServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListServlet</servlet-name>
+        <servlet-class>com.galaxydl.rSystem.servlet.ListServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ECGServlet</servlet-name>
         <url-pattern>/ecg</url-pattern>
@@ -18,5 +22,9 @@
     <servlet-mapping>
         <servlet-name>RWareServlet</servlet-name>
         <url-pattern>/r</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListServlet</servlet-name>
+        <url-pattern>/list</url-pattern>
     </servlet-mapping>
 </web-app>

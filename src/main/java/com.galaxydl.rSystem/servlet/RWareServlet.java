@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import static com.galaxydl.rSystem.bean.Request.*;
 
@@ -27,13 +28,15 @@ public class RWareServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        PrintWriter writer = resp.getWriter();
         String id = req.getParameter("id");
         logger.debug("new request id : " + id);
         Request request = new Request.Builder().method(METHOD_GET).target(TARGET_R).arg(id).build();
         Response response = service.post(request);
         resp.setStatus(response.getResponseCode());
         String body = JSON.toJSONString(response.getRWave());
-        resp.getWriter().print(body);
+        writer.print(body);
+        writer.flush();
         logger.debug("response of id : " + id + " length : " + body.length());
     }
 }

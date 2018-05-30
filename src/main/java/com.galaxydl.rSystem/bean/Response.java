@@ -1,9 +1,12 @@
 package com.galaxydl.rSystem.bean;
 
+import java.util.List;
+
 public final class Response {
     private int responseCode;
     private ECG ecg;
     private RWave rWave;
+    private List<Integer> list;
 
     public Response() {
 
@@ -35,5 +38,13 @@ public final class Response {
 
     public void setRWave(RWave rWave) {
         this.rWave = rWave;
+    }
+
+    public List<Integer> getList() {
+        return list;
+    }
+
+    public void setList(List<Integer> list) {
+        this.list = list;
     }
 }
