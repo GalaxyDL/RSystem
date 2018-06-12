@@ -5,7 +5,7 @@ import com.galaxydl.rSystem.bean.Response;
 
 public interface Chain {
 
-    void add(Processor processor);
+    Chain add(Processor processor);
 
     Response process(Request request);
 }

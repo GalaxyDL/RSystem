@@ -5,13 +5,14 @@ import com.galaxydl.rSystem.bean.RWave;
 import com.galaxydl.rSystem.bean.Request;
 import com.galaxydl.rSystem.bean.Response;
 import com.galaxydl.rSystem.persistence.ECGPersistenceHelper;
+import com.galaxydl.rSystem.persistence.IPersistenceHelper;
 import com.galaxydl.rSystem.persistence.RWavePersistenceHelper;
 
 import static com.galaxydl.rSystem.bean.ResponseCode.*;
 
 public class ReadProcessor extends Processor {
-    private ECGPersistenceHelper ecgPersistenceHelper = ECGPersistenceHelper.getHelper();
-    private RWavePersistenceHelper rWavePersistenceHelper = RWavePersistenceHelper.getHelper();
+    private IPersistenceHelper<ECG> ecgPersistenceHelper = ECGPersistenceHelper.getHelper();
+    private IPersistenceHelper<RWave> rWavePersistenceHelper = RWavePersistenceHelper.getHelper();
 
     @Override
     public void process(Request request, Response response) {

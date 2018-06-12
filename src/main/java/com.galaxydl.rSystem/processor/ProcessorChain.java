@@ -7,11 +7,12 @@ public class ProcessorChain implements Chain {
     private Processor head;
 
     @Override
-    public final void add(Processor processor) {
+    public final Chain add(Processor processor) {
         if (head != null) {
             head.setNext(processor);
         }
         head = processor;
+        return this;
     }
 
     @Override

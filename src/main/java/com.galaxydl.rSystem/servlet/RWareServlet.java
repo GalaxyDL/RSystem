@@ -1,6 +1,7 @@
 package com.galaxydl.rSystem.servlet;
 
 import com.alibaba.fastjson.JSON;
+import com.galaxydl.rSystem.bean.RWaveModification;
 import com.galaxydl.rSystem.bean.Request;
 import com.galaxydl.rSystem.bean.Response;
 import com.galaxydl.rSystem.service.IService;
@@ -14,6 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 import static com.galaxydl.rSystem.bean.Request.*;
 
@@ -30,13 +34,38 @@ public class RWareServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter writer = resp.getWriter();
         String id = req.getParameter("id");
-        logger.debug("new request id : " + id);
+        logger.info("new request id : " + id);
         Request request = new Request.Builder().method(METHOD_GET).target(TARGET_R).arg(id).build();
         Response response = service.post(request);
         resp.setStatus(response.getResponseCode());
         String body = JSON.toJSONString(response.getRWave());
         writer.print(body);
         writer.flush();
-        logger.debug("response of id : " + id + " length : " + body.length());
+        logger.info("response of id : " + id + " length : " + body.length());
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        PrintWriter writer = resp.getWriter();
+        String id = req.getParameter("id");
+        logger.info("new modify id : " + id);
+        List<String> modifyArgs = new ArrayList<>();
+        Scanner scanner = new Scanner(req.getInputStream());
+        StringBuilder requestBodyBuidler = new StringBuilder(req.getContentLength());
+        while (scanner.hasNext()) {
+            requestBodyBuidler.append(scanner.next());
+        }
+        RWaveModification rWaveModification = JSON.parseObject(requestBodyBuidler.toString(), RWaveModification.class);
+        Request request = new Request.Builder()
+                .method(METHOD_POST)
+                .target(TARGET_R)
+                .arg(id)
+                .rWaveModification(rWaveModification)
+                .build();
+        Response response = service.post(request);
+        resp.setStatus(response.getResponseCode());
+        logger.info("modify of id : " + id + "finished. Response code: " + response.getResponseCode());
+    }
+
+
 }

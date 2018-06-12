@@ -18,12 +18,14 @@ public final class Request {
     private int target;
     private ArrayList<String> args;
     private ArrayList<File> files;
+    private RWaveModification rWaveModification;
 
     private Request(Builder builder) {
         this.method = builder.method;
         this.target = builder.target;
         this.args = builder.args;
         this.files = builder.files;
+        this.rWaveModification = builder.rWaveModification;
         if (args == null) {
             args = EMPTY_ARGS;
         }
@@ -48,11 +50,16 @@ public final class Request {
         return files;
     }
 
+    public RWaveModification getrWaveModification() {
+        return rWaveModification;
+    }
+
     public static class Builder {
         int method;
         int target;
         ArrayList<String> args;
         ArrayList<File> files;
+        RWaveModification rWaveModification;
 
         public Builder() {
 
@@ -85,6 +92,11 @@ public final class Request {
                 files = new ArrayList<>();
             }
             files.add(file);
+            return this;
+        }
+
+        public Builder rWaveModification(RWaveModification rWaveModification) {
+            this.rWaveModification = rWaveModification;
             return this;
         }
     }

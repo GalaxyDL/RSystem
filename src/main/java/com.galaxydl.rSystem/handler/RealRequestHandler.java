@@ -8,6 +8,11 @@ import com.galaxydl.rSystem.processor.MethodNotAllowedProcessor;
 import com.galaxydl.rSystem.processor.ProcessorChain;
 import com.galaxydl.rSystem.processor.ReadProcessor;
 import com.galaxydl.rSystem.processor.ListProcessor;
+import com.galaxydl.rSystem.processor.FileProcessor;
+import com.galaxydl.rSystem.processor.FilterProcessor;
+import com.galaxydl.rSystem.processor.DetectProcessor;
+import com.galaxydl.rSystem.processor.SaveProcessor;
+import com.galaxydl.rSystem.processor.UpdateProcessor;
 
 public class RealRequestHandler implements RequestHandler {
     private final BadRequestProcessor badRequestProcessor = new BadRequestProcessor();
@@ -43,7 +48,24 @@ public class RealRequestHandler implements RequestHandler {
                 break;
             }
             case Request.METHOD_POST: {
-                chain.add(badRequestProcessor);
+                switch (request.getTarget()) {
+                    case Request.TARGET_EGC: {
+                        chain.add(new FileProcessor())
+                                .add(new FilterProcessor())
+                                .add(new DetectProcessor())
+                                .add(new SaveProcessor());
+                        break;
+                    }
+                    case Request.TARGET_R: {
+                        chain.add(new ReadProcessor())
+                                .add(new UpdateProcessor())
+                                .add(new SaveProcessor());
+                        break;
+                    }
+                    case Request.TARGET_LIST_EGCS:
+                    default:
+                        chain.add(badRequestProcessor);
+                }
                 break;
             }
             default: {
