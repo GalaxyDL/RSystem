@@ -50,7 +50,7 @@ public final class Request {
         return files;
     }
 
-    public RWaveModification getrWaveModification() {
+    public RWaveModification getRWaveModification() {
         return rWaveModification;
     }
 

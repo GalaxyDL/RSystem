@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import java.util.List;
 
-public class SignalListPersistenceHelper implements IPersistenceHelper<List<Integer>> {
+public final class SignalListPersistenceHelper implements IPersistenceHelper<List<Integer>> {
     private SqlSessionFactory sqlSessionFactory;
     private static final SignalListPersistenceHelper INSTANCE = new SignalListPersistenceHelper();
 
@@ -25,6 +25,7 @@ public class SignalListPersistenceHelper implements IPersistenceHelper<List<Inte
             for (int i : data) {
                 signalListDAO.add(i);
             }
+            session.commit();
         }
         return true;
     }

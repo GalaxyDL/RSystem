@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <script type="text/javascript" src="jquery-3.2.1.js"></script>
+
+    <script type="text/javascript" src="echarts.min.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+    <title></title>
+</head>
+<body>
+<div id="bottom_box">
+    <div id="left_box">
+        <div id="inside_left_box">
+            <ul id="add_li">
+            </ul>
+            <p>
+                <input type="file" id="file_upload" name="testfile">
+                <button id="jquery_post" onclick="send_form()">上传文件</button>
+
+            </p>
+        </div>
+    </div>
+    <div style="display: inline-block; ">mean:</div>
+    <div style="display: inline-block;" id="mean">0</div>
+    <div style="display: inline-block;">interval:</div>
+    <div style="display: inline-block;" id="interval">0</div>
+    <button onclick="circle()" style="text-align: right;">滚动</button>
+    <button onclick="end()" style="text-align: right;">暂停</button>
+    <button onclick="send_r()">更新心电信号数据</button>
+    <div id="right_box" onmouseover="clear_list()" onmouseout="show_list()"></div>
+</div>
+<div style="height: 200px"></div>
+</body>
+</html>
+
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+
+    var myChart = echarts.init(document.getElementById('right_box'));
+    var option = {
+        xAxis: {
+            type: 'category',
+            data: []
+        },
+
+        dataZoom: [{
+            type: 'slider',
+            show: true,
+            xAxisIndex: [0],
+            left: '9%',
+            bottom: -5,
+            start: 0,
+            end: 0.05, //初始化滚动条
+            startValue: 1,
+            endValue: 1000
+        }],
+        yAxis: {
+            min: 800,
+            type: 'value'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        series: [{
+            data: [900, 1000, 1200],
+            type: 'line',
+            markPoint: {
+                data: [
+                    {xAxis: 1, yAxis: 900},
+                    {xAxis: 100, yAxis: 900}
+                ]
+            }
+        }],
+
+    };
+    var del = [];
+    var insert = [];
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+    myChart.on('click', eConsole);
+
+    function eConsole(param) {
+        if (typeof param.seriesIndex == 'undefined') {
+            return;
+            alert("lala");
+        }
+        if (param.type == 'click') {
+            var option = myChart.getOption();
+            console.log(option.series[0].markPoint.data);
+            var flag = 0;
+            for (var i = option.series[0].markPoint.data.length - 1; i >= 0; i--) {
+                if (option.series[0].markPoint.data[i].xAxis == param.name) {
+
+                    option.series[0].markPoint.data.splice(i, 1);
+                    flag = 1;
+                    del.push(param.name);
+                }
+            }
+            if (flag == 0) {
+                option.series[0].markPoint.data[option.series[0].markPoint.data.length] = {
+                    xAxis: param.name,
+                    yAxis: param.value
+                };
+                insert.push(param.name);
+            }
+
+        }
+        myChart.setOption(option);
+    }
+</script>
+ 

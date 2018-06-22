@@ -15,8 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import static com.galaxydl.rSystem.bean.Request.*;
@@ -49,13 +47,12 @@ public class RWareServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
         String id = req.getParameter("id");
         logger.info("new modify id : " + id);
-        List<String> modifyArgs = new ArrayList<>();
         Scanner scanner = new Scanner(req.getInputStream());
-        StringBuilder requestBodyBuidler = new StringBuilder(req.getContentLength());
+        StringBuilder requestBodyBuilder = new StringBuilder(req.getContentLength());
         while (scanner.hasNext()) {
-            requestBodyBuidler.append(scanner.next());
+            requestBodyBuilder.append(scanner.next());
         }
-        RWaveModification rWaveModification = JSON.parseObject(requestBodyBuidler.toString(), RWaveModification.class);
+        RWaveModification rWaveModification = JSON.parseObject(requestBodyBuilder.toString(), RWaveModification.class);
         Request request = new Request.Builder()
                 .method(METHOD_POST)
                 .target(TARGET_R)

@@ -75,9 +75,11 @@ public class ECGFileHandler extends BaseFileHandler<ECG> {
             return false;
         }
         try {
-            writer.write(ecg.getSignal().size());
-            for (int i : ecg.getSignal()) {
-                writer.write(i);
+            writer.write(String.valueOf(ecg.getSignal().size()));
+            writer.write('\n');
+            for (Integer i : ecg.getSignal()) {
+                writer.write(i.toString());
+                writer.write('\n');
             }
             writer.flush();
             logger.debug("write id : " + id + " finished. length : " + ecg.getSignal().size());

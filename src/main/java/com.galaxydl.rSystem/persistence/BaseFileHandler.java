@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.nio.channels.FileChannel;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public abstract class BaseFileHandler<T> implements IFileHandler<T> {
@@ -14,7 +15,7 @@ public abstract class BaseFileHandler<T> implements IFileHandler<T> {
 
     private IFileHelper fileHelper;
 
-    public BaseFileHandler() {
+    BaseFileHandler() {
         File directory = new File(DIRECTORY);
         if (!directory.exists()) {
             if (!directory.mkdir()) {
@@ -48,7 +49,7 @@ public abstract class BaseFileHandler<T> implements IFileHandler<T> {
     protected Scanner getScanner(File file) {
         Scanner scanner = null;
         try {
-            scanner = new Scanner(new FileInputStream(file));
+            scanner = new Scanner(new FileInputStream(file), StandardCharsets.UTF_8.name());
         } catch (FileNotFoundException e) {
             logger.warn("can not get scanner", e);
         }
@@ -58,7 +59,9 @@ public abstract class BaseFileHandler<T> implements IFileHandler<T> {
     protected Writer getWriter(File file) {
         Writer writer = null;
         try {
-            writer = new FileWriter(file);
+//            writer =new FileWriter(file);
+            writer = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8);
+            logger.debug("file encoding : " + ((OutputStreamWriter) writer).getEncoding());
         } catch (IOException e) {
             logger.warn("can not get writer", e);
         }

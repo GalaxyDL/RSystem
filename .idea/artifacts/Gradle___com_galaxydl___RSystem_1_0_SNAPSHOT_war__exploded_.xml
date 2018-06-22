@@ -2,19 +2,17 @@
   <artifact type="exploded-war" name="Gradle : com.galaxydl : RSystem-1.0-SNAPSHOT.war (exploded)">
     <output-path>$PROJECT_DIR$/build/libs/exploded/RSystem-1.0-SNAPSHOT.war</output-path>
     <properties id="gradle-properties">
-      <options external-project-path="$PROJECT_DIR$">
-        <manifest>TWFuaWZlc3QtVmVyc2lvbjogMS4wDQoNCg==</manifest>
-      </options>
+      <options external-project-path="$PROJECT_DIR$" />
     </properties>
     <root id="root">
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/build/libs/exploded/RSystem-1.0-SNAPSHOT.war/META-INF/MANIFEST.MF" />
       </element>
-      <element id="javaee-facet-resources" facet="RSystem_main/web/Web Gradle : RSystem-1.0-SNAPSHOT.war" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="RSystem_main" />
           <element id="dir-copy" path="$PROJECT_DIR$/out/production/resources" />
+          <element id="module-output" name="RSystem" />
         </element>
         <element id="directory" name="lib">
           <element id="file-copy" path="$PROJECT_DIR$/libs/RLabrary.jar" />
@@ -24,13 +22,15 @@
           <element id="library" level="project" name="Gradle: com.alibaba:fastjson:1.2.47" />
           <element id="library" level="project" name="Gradle: org.mybatis:mybatis:3.4.6" />
           <element id="library" level="project" name="Gradle: mysql:mysql-connector-java:5.1.6" />
+          <element id="library" level="project" name="Gradle: commons-fileupload:commons-fileupload:1.3" />
           <element id="library" level="project" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.30" />
           <element id="library" level="project" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.2.30" />
+          <element id="library" level="project" name="Gradle: commons-io:commons-io:2.2" />
           <element id="library" level="project" name="Gradle: org.jetbrains:annotations:13.0" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-fileupload/commons-fileupload/1.3/c89e540e4a12cb034fb973e12135839b5de9a87e/commons-fileupload-1.3.jar" />
-          <element id="file-copy" path="$USER_HOME$/.gradle/caches/modules-2/files-2.1/commons-io/commons-io/2.2/83b5b8a7ba1c08f9e8c8ff2373724e33d3c1e22a/commons-io-2.2.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/libs/javabuilder.jar" />
         </element>
       </element>
+      <element id="javaee-facet-resources" facet="RSystem_main/web/Web Gradle : RSystem-1.0-SNAPSHOT.war" />
     </root>
   </artifact>
 </component>

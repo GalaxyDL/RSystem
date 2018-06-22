@@ -1,0 +1,55 @@
+body {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+}
+
+#top_box {
+    width: 100%;
+    height: 25%;
+    background-color: rgb(83, 141, 104);
+}
+
+#bottom_box {
+    width: 100%;
+    height: 100%;
+}
+
+#left_box {
+    float: left;
+    width: 20%;
+    height: 100%;
+    display: block;
+}
+
+#inside_left_box {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(104, 200, 250);
+}
+
+#right_box {
+    float: left;
+    width: 80%;
+    height: 100%;
+}
+
+#fade_button {
+    position: relative;
+    top: 70%;
+    left: 5%;
+    width: 20px;
+    height: 20px;
+    background-color: blue;
+}
+
+#right_button {
+    position: absolute;
+    top: 10%;
+    right: 5%;
+}
+
+li {
+    list-style-type: none;
+}

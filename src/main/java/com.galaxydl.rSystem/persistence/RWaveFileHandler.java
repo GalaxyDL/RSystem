@@ -45,15 +45,20 @@ public class RWaveFileHandler extends BaseFileHandler<RWave> {
         }
         RWave rWave = new RWave(id);
         int length;
+        double mean, interval;
         if (!scanner.hasNextInt()) {
             logger.warn("file id : " + id + " is empty.");
             return null;
         }
         length = scanner.nextInt();
+        interval = scanner.nextDouble();
+        mean = scanner.nextDouble();
         ArrayList<Integer> list = new ArrayList<>(length);
         for (int i = 0; i < length; i++) {
             list.add(scanner.nextInt());
         }
+        rWave.setInterval(interval);
+        rWave.setMean(mean);
         rWave.setPositions(list);
         scanner.close();
         lock.readLock().unlock();
@@ -77,9 +82,16 @@ public class RWaveFileHandler extends BaseFileHandler<RWave> {
             return false;
         }
         try {
-            writer.write(rWave.getPositions().size());
-            for (int i : rWave.getPositions()) {
-                writer.write(i);
+            writer.write(String.valueOf(rWave.getPositions().size()));
+            writer.write(' ');
+            writer.write(String.valueOf(rWave.getInterval()));
+            writer.write(' ');
+            writer.write(String.valueOf(rWave.getMean()));
+            writer.write(' ');
+            writer.write('\n');
+            for (Integer i : rWave.getPositions()) {
+                writer.write(i.toString());
+                writer.write('\n');
             }
             writer.flush();
             logger.debug("write id : " + id + " finished. length : " + rWave.getPositions().size());

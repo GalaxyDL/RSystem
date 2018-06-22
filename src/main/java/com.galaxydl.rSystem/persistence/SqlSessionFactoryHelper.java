@@ -17,6 +17,13 @@ public final class SqlSessionFactoryHelper {
 
     public static SqlSessionFactory getFactory() {
         if (factory == null) {
+            init();
+        }
+        return factory;
+    }
+
+    public static void init() {
+        if (factory == null) {
             try {
                 InputStream inputStream = Resources.getResourceAsStream(CONFIGURATION);
                 factory = new SqlSessionFactoryBuilder().build(inputStream);
@@ -26,10 +33,9 @@ public final class SqlSessionFactoryHelper {
                 throw new RuntimeException("can not create sql session factory!", e);
             }
         }
-        return factory;
     }
 
-    public static void registerMapper() {
+    private static void registerMapper() {
         factory.getConfiguration().addMapper(SignalListDAO.class);
     }
 }

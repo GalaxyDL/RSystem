@@ -14,7 +14,7 @@ import com.galaxydl.rSystem.processor.DetectProcessor;
 import com.galaxydl.rSystem.processor.SaveProcessor;
 import com.galaxydl.rSystem.processor.UpdateProcessor;
 
-public class RealRequestHandler implements RequestHandler {
+public final class RealRequestHandler implements RequestHandler {
     private final BadRequestProcessor badRequestProcessor = new BadRequestProcessor();
     private final MethodNotAllowedProcessor methodNotAllowedProcessor = new MethodNotAllowedProcessor();
 

@@ -5,13 +5,18 @@ import com.galaxydl.rSystem.bean.Response;
 
 public class ProcessorChain implements Chain {
     private Processor head;
+    private Processor tail;
 
     @Override
     public final Chain add(Processor processor) {
-        if (head != null) {
-            head.setNext(processor);
+        if (head == null) {
+            head = processor;
+            tail = processor;
+        } else {
+            tail.setNext(processor);
+            tail = processor;
         }
-        head = processor;
+
         return this;
     }
 

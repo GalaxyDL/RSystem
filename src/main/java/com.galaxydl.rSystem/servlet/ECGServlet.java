@@ -3,6 +3,7 @@ package com.galaxydl.rSystem.servlet;
 import com.alibaba.fastjson.JSON;
 import com.galaxydl.rSystem.bean.Request;
 import com.galaxydl.rSystem.bean.Response;
+import com.galaxydl.rSystem.persistence.SqlSessionFactoryHelper;
 import com.galaxydl.rSystem.service.IService;
 import com.galaxydl.rSystem.service.Service;
 import org.apache.commons.fileupload.FileItem;
@@ -43,11 +44,12 @@ public class ECGServlet extends HttpServlet {
                 throw new RuntimeException(TEMP_DIRECTORY_CAN_NOT_BE_CREATED);
             }
         }
-
+        SqlSessionFactoryHelper.init();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        logger.info("path : " + System.getProperty("user.dir"));
         PrintWriter writer = resp.getWriter();
         String id = req.getParameter("id");
         logger.info("new request id : " + id);
@@ -98,8 +100,14 @@ public class ECGServlet extends HttpServlet {
                     .file(storeFile)
                     .build();
             Response response = service.post(request);
+            if (response.getResponseCode() == 0) {
+                response.setResponseCode(OK);
+                if (!storeFile.delete()) {
+                    logger.warn("can not delete the temp file " + storeFile.getName());
+                }
+            }
             resp.setStatus(response.getResponseCode());
+            logger.info("new ecg file received, status code: " + resp.getStatus());
         }
-        logger.info("new ecg file received, status code: " + resp.getStatus());
     }
 }

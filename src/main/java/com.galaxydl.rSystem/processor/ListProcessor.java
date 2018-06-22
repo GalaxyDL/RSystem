@@ -4,6 +4,8 @@ import com.galaxydl.rSystem.bean.Request;
 import com.galaxydl.rSystem.bean.Response;
 import com.galaxydl.rSystem.persistence.IPersistenceHelper;
 import com.galaxydl.rSystem.persistence.SignalListPersistenceHelper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
@@ -14,6 +16,7 @@ import static com.galaxydl.rSystem.bean.ResponseCode.OK;
 
 public class ListProcessor extends Processor {
     private IPersistenceHelper<List<Integer>> signalListPersistenceHelper = SignalListPersistenceHelper.getHelper();
+    private Logger logger = LogManager.getLogger();
 
     @Override
     public void process(Request request, Response response) {
@@ -23,6 +26,7 @@ public class ListProcessor extends Processor {
         } else {
             response.setResponseCode(BAD_REQUEST);
         }
+        logger.debug("finished");
         super.process(request, response);
     }
 }

@@ -7,12 +7,15 @@ import com.galaxydl.rSystem.bean.Response;
 import com.galaxydl.rSystem.persistence.ECGPersistenceHelper;
 import com.galaxydl.rSystem.persistence.IPersistenceHelper;
 import com.galaxydl.rSystem.persistence.RWavePersistenceHelper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import static com.galaxydl.rSystem.bean.ResponseCode.*;
 
 public class ReadProcessor extends Processor {
     private IPersistenceHelper<ECG> ecgPersistenceHelper = ECGPersistenceHelper.getHelper();
     private IPersistenceHelper<RWave> rWavePersistenceHelper = RWavePersistenceHelper.getHelper();
+    private Logger logger = LogManager.getLogger();
 
     @Override
     public void process(Request request, Response response) {
@@ -59,6 +62,7 @@ public class ReadProcessor extends Processor {
                 response.setResponseCode(BAD_REQUEST);
             }
         }
+        logger.debug("finished");
         super.process(request, response);
     }
 }

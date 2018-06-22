@@ -6,6 +6,7 @@
     <servlet>
         <servlet-name>ECGServlet</servlet-name>
         <servlet-class>com.galaxydl.rSystem.servlet.ECGServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
     </servlet>
     <servlet>
         <servlet-name>RWareServlet</servlet-name>

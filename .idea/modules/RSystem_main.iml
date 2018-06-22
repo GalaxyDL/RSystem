@@ -29,7 +29,7 @@
           <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/WEB-INF/web.xml" />
         </descriptors>
         <webroots>
-          <root url="file://C:\Users\Galaxy\IdeaProjects\RSystem\src\main\webapp" relative="/" />
+          <root url="file://$MODULE_DIR$/../../src/main/webapp" relative="/" />
         </webroots>
       </configuration>
     </facet>
@@ -47,6 +47,15 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/../../libs/RLabrary.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../libs/javabuilder.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

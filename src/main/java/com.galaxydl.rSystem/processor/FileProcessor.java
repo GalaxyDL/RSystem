@@ -38,6 +38,7 @@ public class FileProcessor extends Processor {
             response.setResponseCode(INTERNAL_SERVER_ERROR);
             return;
         }
+        logger.debug("finished");
         super.process(request, response);
     }
 
@@ -48,13 +49,14 @@ public class FileProcessor extends Processor {
                 result.add(scanner.nextInt());
             }
         }
+        logger.info("got " + result.size() + " signals.");
         return result;
     }
 
     private int getEcgId() {
         IPersistenceHelper<List<Integer>> listPersistenceHelper = SignalListPersistenceHelper.getHelper();
         List<Integer> list = listPersistenceHelper.query(0);
-        int result = 0;
+        int result = 1;
         for (int i : list) {
             if (result == i) {
                 result = i + 1;
