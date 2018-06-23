@@ -16,21 +16,36 @@ function clear_list() {
 }
 
 function send_form() {
+    var myChart = echarts.init(document.getElementById('right_box'));
     var data = new FormData();
     data.append("testfile", document.getElementById("file_upload").files[0]);
     $.ajax({
-        url: "/ecg",
+        url: window.location.pathname + "ecg",
         type: "POST",
         dataType: "JSON",
         data: data,
         contentType: false,
         processData: false,
-        success: function (rst) {
-            console.log("the state is " + rst.state);
+        beforeSend: Load_function,
+        error: error_function,
+        success: function (rec) {
+            if (rec.state = 500) {
+                myChart.hideLoading();
+            }
         }
-    });
-}
 
+    });
+
+    function Load_function() {
+        myChart.showLoading();
+    }
+
+    function error_function() {
+        alert("处理出错，请检查上传文件是否合法。");                  //如果你怕滤波不行 回来 会报错 之后就停了 的话 ，就把error注释掉
+        // 那你就只能成功得到500的时候才能 把这个蒙层去掉
+        myChart.hideLoading();
+    }
+}
 var Rpoints = [];
 
 function request_result(file_name) {
@@ -42,7 +57,7 @@ function request_result(file_name) {
 //request_list 请求心电信号文件名
 function request_list() {
     $.ajax({
-        url: 'list',
+        url: window.location.pathname + 'list',
         type: 'GET',
         dataType: 'json',
         timeout: 1000,
@@ -95,7 +110,7 @@ function showView() {
     $.ajax({
         type: "GET",
         dataType: "JSON",
-        url: "ecg?id=" + index,
+        url: window.location.pathname + "ecg?id=" + index,
         //data:{}; //post
         success: on_get_ecg_succeed
     });
@@ -123,7 +138,7 @@ function on_get_ecg_succeed(result) {
     $.ajax({
         type: "GET",
         dataType: "JSON",
-        url: "r?id=" + index,//待写 标注点请求
+        url: window.location.pathname + "r?id=" + index,//待写 标注点请求
         success: on_get_r_succeed
     });
     // } else {
@@ -145,6 +160,7 @@ function on_get_r_succeed(data) {
     }
     document.getElementById("mean").innerHTML = mean;
     document.getElementById("interval").innerHTML = interval;
+    document.getElementById("num").innerHTML = data.positions.length;
     myChart.setOption(option);
 }
 
@@ -194,7 +210,7 @@ function send_r() {
     json.delete = del;
     json = JSON.stringify(json);
     $.ajax({
-        url: "/r?id=" + index,
+        url: window.location.pathname + "r?id=" + index,
         type: "POST",
         dataType: "JSON",
         data: json,

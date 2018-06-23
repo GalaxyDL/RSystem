@@ -25,9 +25,9 @@ import static com.galaxydl.rSystem.bean.Request.*;
 import static com.galaxydl.rSystem.bean.ResponseCode.*;
 
 public class ECGServlet extends HttpServlet {
-    private static final String TEMP_PATH = "C:/Users/Galaxy/IdeaProjects/RSystem/temp/";
+    private String tempPath;
     private static final String TEMP_DIRECTORY_CAN_NOT_BE_CREATED = "temp directory cannot be created!";
-    private static final File TEMP_DIRECTORY = new File(TEMP_PATH);
+    private File tempDirectory;
 
     private static final int MEMORY_THRESHOLD = 1024 * 1024 * 5;
     private static final int MAX_FILE_SIZE = 1024 * 1024 * 40;
@@ -38,9 +38,13 @@ public class ECGServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
+        tempPath = getServletContext().getRealPath("/") + "temp\\";
+        logger.info("temp path: " + tempPath);
+        ServletPath.setPath(getServletContext().getRealPath("/"));
+        tempDirectory = new File(tempPath);
         service = Service.getInstance();
-        if (!TEMP_DIRECTORY.exists()) {
-            if (!TEMP_DIRECTORY.mkdir()) {
+        if (!tempDirectory.exists()) {
+            if (!tempDirectory.mkdir()) {
                 throw new RuntimeException(TEMP_DIRECTORY_CAN_NOT_BE_CREATED);
             }
         }
@@ -64,7 +68,7 @@ public class ECGServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        logger.debug("new ecg file");
+        logger.info("new ecg file");
         PrintWriter writer = resp.getWriter();
         if (!ServletFileUpload.isMultipartContent(req)) {
             resp.setStatus(BAD_REQUEST);
@@ -73,7 +77,7 @@ public class ECGServlet extends HttpServlet {
         File storeFile = null;
         DiskFileItemFactory factory = new DiskFileItemFactory();
         factory.setSizeThreshold(MEMORY_THRESHOLD);
-        factory.setRepository(TEMP_DIRECTORY);
+        factory.setRepository(tempDirectory);
         ServletFileUpload upload = new ServletFileUpload(factory);
         upload.setFileSizeMax(MAX_FILE_SIZE);
         try {
@@ -81,7 +85,7 @@ public class ECGServlet extends HttpServlet {
             if (items != null && items.size() > 0) {
                 for (FileItem item : items) {
                     if (!item.isFormField()) {
-                        storeFile = new File(TEMP_PATH + new File(item.getName()).getName());
+                        storeFile = new File(tempPath + new File(item.getName()).getName());
                         logger.info("store file : " + storeFile.getAbsolutePath());
                         item.write(storeFile);
                         break;

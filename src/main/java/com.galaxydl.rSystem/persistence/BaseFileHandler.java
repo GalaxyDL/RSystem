@@ -1,5 +1,6 @@
 package com.galaxydl.rSystem.persistence;
 
+import com.galaxydl.rSystem.servlet.ServletPath;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -9,17 +10,20 @@ import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public abstract class BaseFileHandler<T> implements IFileHandler<T> {
-    private static final String DIRECTORY = "C:/Users/Galaxy/IdeaProjects/RSystem/data/";
-    private static final String DIRECTORY_CAN_NOT_CREATED = "can not create " + DIRECTORY;
+    private String path;
+    private String pathCanNotCreated;
     private Logger logger = LogManager.getLogger();
 
     private IFileHelper fileHelper;
 
     BaseFileHandler() {
-        File directory = new File(DIRECTORY);
+        path = ServletPath.getPath() + "data\\";
+        logger.info("data path : " + path);
+        pathCanNotCreated = "can not create " + path;
+        File directory = new File(path);
         if (!directory.exists()) {
             if (!directory.mkdir()) {
-                logger.error(DIRECTORY_CAN_NOT_CREATED);
+                logger.error(pathCanNotCreated);
             }
         }
         fileHelper = new FileHelper();
@@ -61,7 +65,6 @@ public abstract class BaseFileHandler<T> implements IFileHandler<T> {
         try {
 //            writer =new FileWriter(file);
             writer = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8);
-            logger.debug("file encoding : " + ((OutputStreamWriter) writer).getEncoding());
         } catch (IOException e) {
             logger.warn("can not get writer", e);
         }
@@ -80,7 +83,7 @@ public abstract class BaseFileHandler<T> implements IFileHandler<T> {
     protected abstract String getExtension();
 
     private String getPath(int id) {
-        return DIRECTORY + id + getExtension();
+        return path + id + getExtension();
     }
 
     public IFileHelper getFileHelper() {
