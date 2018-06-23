@@ -32,6 +32,7 @@ public class FileProcessor extends Processor {
         try {
             List<Integer> signal = readTempFile(tempFile);
             ECG ecg = new ECG(getEcgId(), signal, 0);
+            ecg.setFilename(tempFile.getName());
             response.setEcg(ecg);
         } catch (FileNotFoundException e) {
             logger.error(e);

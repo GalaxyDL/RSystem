@@ -1,6 +1,6 @@
 package com.galaxydl.rSystem.servlet;
 
-public class ServletPath {
+public final class ServletPath {
     private static String path;
 
     public static void setPath(String path) {

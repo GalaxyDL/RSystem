@@ -5,6 +5,7 @@
 //show_view 请求心电信号
 
 var index;
+var tot;
 
 function show_list() {
     $("#inside_left_box").fadeIn();
@@ -32,6 +33,7 @@ function send_form() {
             if (rec.state = 500) {
                 myChart.hideLoading();
             }
+            location.reload();
         }
 
     });
@@ -41,9 +43,10 @@ function send_form() {
     }
 
     function error_function() {
-        alert("处理出错，请检查上传文件是否合法。");                  //如果你怕滤波不行 回来 会报错 之后就停了 的话 ，就把error注释掉
+        //alert("处理出错，请检查上传文件是否合法。");                  //如果你怕滤波不行 回来 会报错 之后就停了 的话 ，就把error注释掉
         // 那你就只能成功得到500的时候才能 把这个蒙层去掉
         myChart.hideLoading();
+        location.reload();
     }
 }
 var Rpoints = [];
@@ -72,23 +75,24 @@ function request_list() {
     }
 
     function errorFunction() {
-        alert("error");
+        console.log("error");
+        location.reload();
     }
 
     function succFunction(tt) {
-        var json = eval(tt); //数组
+        var id = tt.id;
+        var name = tt.filename;
         var lists;
-        console.log(json);
 
-        for (var i = 0; i < json.length; i++) {
-            lists = "<li>" + json[i] + "<li/>";
+        for (var i = 0; i < id.length; i++) {
+            lists = "<li><span class='li_id'>" + id[i] + "</span><span>:" + name[i] + "</span></li>";
             document.getElementById("add_li").innerHTML += lists;
         }
         var obj_lis = document.getElementById("add_li").getElementsByTagName("li");
         for (var i = 0; i < obj_lis.length; i++) {
             obj_lis[i].onclick = function () {
                 var file_name;
-                file_name = this.innerHTML;
+                file_name = this.firstElementChild.innerHTML;
                 index = file_name;
                 showView();
             }
@@ -131,10 +135,23 @@ function on_get_ecg_succeed(result) {
     for (var i = 0; i < signal.length; i++) {
         xAxis.push(i);
     }
+    tot = result.signal.length;
+
     myChart.hideLoading();
-    option.xAxis[0].data = xAxis;　　　　　　　　　　　//隐藏加载动画
-    option.series[0].data = signal;
-    myChart.setOption(option);
+    // option.xAxis[0].data = xAxis;　　　　　　　　　　　//隐藏加载动画
+    // option.series[0].data = signal;
+    myChart.setOption({
+        dataZoom: {
+            start: 0,
+            end: 100000 / tot
+        },
+        xAxis: {
+            data: xAxis
+        },
+        series: {
+            data: signal
+        }
+    });
     $.ajax({
         type: "GET",
         dataType: "JSON",
@@ -177,6 +194,9 @@ function circle() {
     console.log(option.dataZoom[0].start);
     startvalue = option.dataZoom[0].start;
     endvalue = option.dataZoom[0].end;
+    length = endvalue - startvalue;
+    var step = length * 0.015;
+    console.log(step);
     flag = 0;
     var id = setInterval(function () {
         if (endvalue == 100) {
@@ -187,14 +207,17 @@ function circle() {
             window.clearInterval(id);
             return;
         }
-        startvalue = startvalue + 0.25;
-        endvalue = endvalue + 0.25;
+        startvalue = startvalue + step;
+        endvalue = endvalue + step;
         option.dataZoom[0].start = startvalue;
         option.dataZoom[0].end = endvalue;
-        // console.log(startvalue);
-        // console.log(endvalue);
-        myChart.setOption(option);
-    }, 50);
+        myChart.setOption({
+            dataZoom: {
+                start: startvalue,
+                end: endvalue
+            }
+        });
+    }, 500);
 
 }
 

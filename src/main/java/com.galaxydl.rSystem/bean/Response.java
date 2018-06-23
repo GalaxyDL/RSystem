@@ -7,6 +7,7 @@ public final class Response {
     private ECG ecg;
     private RWave rWave;
     private List<Integer> list;
+    private List<String> filenames;
 
     public Response() {
 
@@ -46,5 +47,13 @@ public final class Response {
 
     public void setList(List<Integer> list) {
         this.list = list;
+    }
+
+    public void setFilenames(List<String> filenames) {
+        this.filenames = filenames;
+    }
+
+    public List<String> getFilenames() {
+        return filenames;
     }
 }

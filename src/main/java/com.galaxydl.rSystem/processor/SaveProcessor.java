@@ -22,14 +22,14 @@ public class SaveProcessor extends Processor {
 
     @Override
     public void process(Request request, Response response) {
+        if (request.getMethod() == Request.METHOD_POST && request.getTarget() == Request.TARGET_EGC) {
+            signalListPersistenceHelper.save(Arrays.asList(response.getRWave().getId()));
+        }
         if (response.getEcg() != null) {
             ecgPersistenceHelper.save(response.getEcg());
         }
         if (response.getRWave() != null) {
             rWavePersistenceHelper.save(response.getRWave());
-        }
-        if (request.getMethod() == Request.METHOD_POST && request.getTarget() == Request.TARGET_EGC) {
-            signalListPersistenceHelper.save(Arrays.asList(response.getRWave().getId()));
         }
         logger.debug("finished");
         super.process(request, response);

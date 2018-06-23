@@ -2,6 +2,7 @@ package com.galaxydl.rSystem.processor;
 
 import com.galaxydl.rSystem.bean.Request;
 import com.galaxydl.rSystem.bean.Response;
+import com.galaxydl.rSystem.persistence.FilenameListPersistenceHelper;
 import com.galaxydl.rSystem.persistence.IPersistenceHelper;
 import com.galaxydl.rSystem.persistence.SignalListPersistenceHelper;
 import org.apache.logging.log4j.LogManager;
@@ -16,12 +17,14 @@ import static com.galaxydl.rSystem.bean.ResponseCode.OK;
 
 public class ListProcessor extends Processor {
     private IPersistenceHelper<List<Integer>> signalListPersistenceHelper = SignalListPersistenceHelper.getHelper();
+    private IPersistenceHelper<List<String>> filenameListPersistenceHelper = FilenameListPersistenceHelper.getHelper();
     private Logger logger = LogManager.getLogger();
 
     @Override
     public void process(Request request, Response response) {
         if (request.getMethod() == METHOD_GET && request.getTarget() == TARGET_LIST_EGCS) {
             response.setList(signalListPersistenceHelper.query(0));
+            response.setFilenames(filenameListPersistenceHelper.query(0));
             response.setResponseCode(OK);
         } else {
             response.setResponseCode(BAD_REQUEST);

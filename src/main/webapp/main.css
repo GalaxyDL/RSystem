@@ -1,8 +1,13 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
 body {
     position: absolute;
     width: 100%;
     height: 100%;
-    margin: 0px;
+
 }
 
 #bottom_box {
@@ -25,6 +30,28 @@ body {
     background-color: rgb(104, 200, 250);
 }
 
+#top_box {
+    padding-left: 120px;
+    margin-left: 20%;
+    margin-top: 24px;
+}
+
+#info {
+
+}
+
+#control {
+    margin-top: 16px;
+}
+
+#control button {
+    border: none;
+    border-radius: 10px;
+    padding: 8px 16px;
+    text-align: center;
+    background-color: lightgrey;
+}
+
 #right_box {
     float: left;
     width: 80%;
@@ -33,7 +60,6 @@ body {
 
 #jquery_post {
     position: relative;
-    left: -30%;
 }
 #fade_button {
     position: relative;
@@ -50,6 +76,13 @@ body {
     right: 5%;
 }
 
-li {
+#add_li {
+    padding-top: 24px;
+}
+
+#add_li li {
     list-style-type: none;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    padding-left: 36px;
 }

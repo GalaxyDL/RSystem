@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import static com.galaxydl.rSystem.bean.Request.METHOD_GET;
 import static com.galaxydl.rSystem.bean.Request.TARGET_LIST_EGCS;
@@ -34,9 +35,35 @@ public class ListServlet extends HttpServlet {
         Request request = new Request.Builder().method(METHOD_GET).target(TARGET_LIST_EGCS).build();
         Response response = service.post(request);
         resp.setStatus(response.getResponseCode());
-        String body = JSON.toJSONString(response.getList());
+        String body = JSON.toJSONString(new ListItem(response.getList(), response.getFilenames()));
         writer.print(body);
         writer.flush();
         logger.info("response of list: length : " + body.length());
+    }
+
+    private class ListItem {
+        private List<Integer> id;
+        private List<String> filename;
+
+        ListItem(List<Integer> id, List<String> filename) {
+            this.id = id;
+            this.filename = filename;
+        }
+
+        public List<Integer> getId() {
+            return id;
+        }
+
+        public void setId(List<Integer> id) {
+            this.id = id;
+        }
+
+        public List<String> getFilename() {
+            return filename;
+        }
+
+        public void setFilename(List<String> filename) {
+            this.filename = filename;
+        }
     }
 }

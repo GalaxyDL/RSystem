@@ -1,5 +1,6 @@
 package com.galaxydl.rSystem.persistence;
 
+import com.galaxydl.rSystem.persistence.dao.FilenameDAO;
 import com.galaxydl.rSystem.persistence.dao.SignalListDAO;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -37,5 +38,6 @@ public final class SqlSessionFactoryHelper {
 
     private static void registerMapper() {
         factory.getConfiguration().addMapper(SignalListDAO.class);
+        factory.getConfiguration().addMapper(FilenameDAO.class);
     }
 }

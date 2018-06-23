@@ -6,6 +6,7 @@ public final class ECG {
     private int id;
     private List<Integer> signal;
     private int offset;
+    private String filename;
 
     public ECG(int id) {
         this.id = id;
@@ -39,5 +40,13 @@ public final class ECG {
 
     public void setOffset(int offset) {
         this.offset = offset;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 }

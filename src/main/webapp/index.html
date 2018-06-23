@@ -17,24 +17,28 @@
 
     </div>
 </div>
-<div id="info">
-    <div style="display: inline-block; ">mean:</div>
-    <div id="mean" style="display: inline-block;">0</div>
-    <div style="display: inline-block;">interval:</div>
-    <div id="interval" style="display: inline-block;">0</div>
-    <div style="display: inline-block;">number:</div>
-    <div id="num" style="display: inline-block;">0</div>
+<div id="top_box">
+    <div id="info">
+        <div style="display: inline-block; ">mean:</div>
+        <div id="mean" style="display: inline-block;">0</div>
+        <div style="display: inline-block;">interval:</div>
+        <div id="interval" style="display: inline-block;">0</div>
+        <div style="display: inline-block;">number:</div>
+        <div id="num" style="display: inline-block;">0</div>
+    </div>
+    <div id="control">
+        <button onclick="circle()" style="text-align: right;">开始滚动</button>
+        <button onclick="end()" style="text-align: right;">停止滚动</button>
+        <button onclick="send_r()">上传R点修正</button>
+        <p style="display: inline-block; margin-left: 32px;">
+            <input type="file" id="file_upload" name="testfile">
+            <button id="jquery_post" onclick="send_form()">上传文件</button>
+        </p>
+    </div>
 </div>
-<div id="control">
-    <button onclick="circle()" style="text-align: right;">开始</button>
-    <button onclick="end()" style="text-align: right;">结束</button>
-    <button onclick="send_r()">上传R点修正</button>
+<div id="right_box">
+
 </div>
-<p style="display: inline-block;">
-    <input type="file" id="file_upload" name="testfile">
-    <button id="jquery_post" onclick="send_form()">上传文件</button>
-</p>
-<div id="right_box"></div>
 <div style="height: 200px"></div>
 </body>
 </html>
