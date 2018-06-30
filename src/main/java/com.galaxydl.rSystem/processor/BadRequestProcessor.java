@@ -6,7 +6,10 @@ import com.galaxydl.rSystem.bean.ResponseCode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class BadRequestProcessor extends Processor {
+/**
+ * BadRequestProcessor为响应写入400错误
+ */
+public final class BadRequestProcessor extends Processor {
     private Logger logger = LogManager.getLogger();
 
     @Override

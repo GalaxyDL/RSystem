@@ -14,6 +14,11 @@ import com.galaxydl.rSystem.processor.DetectProcessor;
 import com.galaxydl.rSystem.processor.SaveProcessor;
 import com.galaxydl.rSystem.processor.UpdateProcessor;
 
+/**
+ * RequestHandler的实际实现
+ * 通过构建Chain并调用其process方法对请求进行处理
+ * {@link ProcessorChain}
+ */
 public final class RealRequestHandler implements RequestHandler {
     private final BadRequestProcessor badRequestProcessor = new BadRequestProcessor();
     private final MethodNotAllowedProcessor methodNotAllowedProcessor = new MethodNotAllowedProcessor();

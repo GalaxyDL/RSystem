@@ -14,7 +14,15 @@ import org.apache.logging.log4j.Logger;
 import java.util.Arrays;
 import java.util.List;
 
-public class SaveProcessor extends Processor {
+/**
+ * SaveProcessor能存储响应中的数据项
+ * 和请求中新增的心电信号id
+ * <p>
+ * {@link ECGPersistenceHelper}
+ * {@link RWavePersistenceHelper}
+ * {@link SignalListPersistenceHelper}
+ */
+public final class SaveProcessor extends Processor {
     private IPersistenceHelper<ECG> ecgPersistenceHelper = ECGPersistenceHelper.getHelper();
     private IPersistenceHelper<RWave> rWavePersistenceHelper = RWavePersistenceHelper.getHelper();
     private IPersistenceHelper<List<Integer>> signalListPersistenceHelper = SignalListPersistenceHelper.getHelper();

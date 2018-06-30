@@ -6,7 +6,10 @@ import com.galaxydl.rSystem.bean.ResponseCode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class MethodNotAllowedProcessor extends Processor {
+/**
+ * MethodNotAllowedProcessor为响应写入405错误
+ */
+public final class MethodNotAllowedProcessor extends Processor {
     private Logger logger = LogManager.getLogger();
 
     @Override

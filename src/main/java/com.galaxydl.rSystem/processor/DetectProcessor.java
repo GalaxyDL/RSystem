@@ -10,12 +10,19 @@ import com.mathworks.toolbox.javabuilder.MWNumericArray;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.galaxydl.rSystem.bean.ResponseCode.INTERNAL_SERVER_ERROR;
 
-public class DetectProcessor extends Processor {
+/**
+ * DetectProcessor对响应中的信号进行R点标注
+ * 标注算法采用matlab实现
+ * <p>
+ * {@link RLabrary}
+ */
+public final class DetectProcessor extends Processor {
     private Logger logger = LogManager.getLogger();
 
     @SuppressWarnings("Duplicates")
@@ -47,7 +54,7 @@ public class DetectProcessor extends Processor {
             interval = mwInterval.getDouble();
             logger.debug("interval : " + interval);
             mwMean = (MWNumericArray) result[2];
-            mean = mwMean.getDouble();
+            mean = Double.parseDouble(new DecimalFormat("#.00").format(mwMean.getDouble()));
             logger.debug("mean : " + mean);
             mwPosition = (MWNumericArray) result[3];
             position = new ArrayList<>();

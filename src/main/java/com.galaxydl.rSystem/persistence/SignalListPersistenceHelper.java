@@ -6,6 +6,14 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import java.util.List;
 
+/**
+ * SignalListPersistenceHelper提供对信号id列表的持久化操作
+ * 此类是一个单例类
+ * 获取引用调用{@code SignalListPersistenceHelper.getHelper();}
+ * <p>
+ * {@link SqlSessionFactory}
+ * {@link SignalListDAO}
+ */
 public final class SignalListPersistenceHelper implements IPersistenceHelper<List<Integer>> {
     private SqlSessionFactory sqlSessionFactory;
     private static final SignalListPersistenceHelper INSTANCE = new SignalListPersistenceHelper();

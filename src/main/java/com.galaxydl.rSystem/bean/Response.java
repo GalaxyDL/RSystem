@@ -2,7 +2,16 @@ package com.galaxydl.rSystem.bean;
 
 import java.util.List;
 
+/**
+ * Response是一个HTTP响应的内部抽象
+ * 其实际功能不仅仅是表达响应
+ * 还可以作为处理中临时对象的存放处
+ */
 public final class Response {
+    /**
+     * responseCode的值应该是HTTP标准响应码之中的值
+     * 系统中常用的响应码可以利用{@link ResponseCode}
+     */
     private int responseCode;
     private ECG ecg;
     private RWave rWave;

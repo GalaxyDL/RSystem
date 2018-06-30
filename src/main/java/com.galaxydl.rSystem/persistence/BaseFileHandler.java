@@ -9,6 +9,17 @@ import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
+/**
+ * IFileHandler的基础实现
+ * 提供了打开文件、获取Scanner、Writer等常用的功能
+ * <p>
+ * {@link Scanner}
+ * {@link Writer}
+ * {@link FileHelper}
+ * {@link IFileHandler}
+ *
+ * @param <T>
+ */
 public abstract class BaseFileHandler<T> implements IFileHandler<T> {
     private String path;
     private String pathCanNotCreated;
@@ -55,7 +66,7 @@ public abstract class BaseFileHandler<T> implements IFileHandler<T> {
         try {
             scanner = new Scanner(new FileInputStream(file), StandardCharsets.UTF_8.name());
         } catch (FileNotFoundException e) {
-            logger.warn("can not get scanner", e);
+            logger.error("can not get scanner", e);
         }
         return scanner;
     }
@@ -66,7 +77,7 @@ public abstract class BaseFileHandler<T> implements IFileHandler<T> {
 //            writer =new FileWriter(file);
             writer = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8);
         } catch (IOException e) {
-            logger.warn("can not get writer", e);
+            logger.error("can not get writer", e);
         }
         return writer;
     }
@@ -75,7 +86,7 @@ public abstract class BaseFileHandler<T> implements IFileHandler<T> {
         try {
             return new FileInputStream(file).getChannel();
         } catch (FileNotFoundException e) {
-            logger.warn("can not get fileChannel", e);
+            logger.error("can not get fileChannel", e);
         }
         return null;
     }

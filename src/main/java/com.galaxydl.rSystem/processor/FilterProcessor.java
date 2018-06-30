@@ -1,18 +1,21 @@
 package com.galaxydl.rSystem.processor;
 
+import RLabrary.RLabrary;
 import com.galaxydl.rSystem.bean.ECG;
 import com.galaxydl.rSystem.bean.Request;
 import com.galaxydl.rSystem.bean.Response;
+import com.mathworks.toolbox.javabuilder.MWException;
+import com.mathworks.toolbox.javabuilder.MWNumericArray;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
-import static com.galaxydl.rSystem.bean.ResponseCode.*;
-
-public class FilterProcessor extends Processor {
+/**
+ * FilterProcessor对响应中的心电信号进行滤波
+ */
+public final class FilterProcessor extends Processor {
     private static final int LOW_PASS_SMOOTHING = 5;
     private static final int MEAN_WINDOW = 3;
 
@@ -29,35 +32,6 @@ public class FilterProcessor extends Processor {
         signal = meanFilter(signal, MEAN_WINDOW);
         ecg.setSignal(signal);
         response.setEcg(ecg);
-//        RLabrary rAlgorithm;
-//        try {
-//            rAlgorithm = RAlgorithmFactory.getRAlgorithm();
-//        } catch (MWException e) {
-//            logger.error(e);
-//            response.setResponseCode(INTERNAL_SERVER_ERROR);
-//            return;
-//        }
-//        MWNumericArray mwSignal = null;
-//        Object[] result;
-//        try {
-//            result = rAlgorithm.Lvbo(1, new Object[]{ecg.getSignal().toArray()});
-//            mwSignal = (MWNumericArray) result[0];
-//            List<Integer> signal = new ArrayList<>();
-//            for (int i : mwSignal.getIntData()) {
-//                signal.add(i);
-//            }
-//            logger.debug("signal size : " + signal.size());
-//            ecg.setSignal(signal);
-//        } catch (MWException e) {
-//            logger.error(e);
-//            response.setResponseCode(INTERNAL_SERVER_ERROR);
-////            return;
-//        } finally {
-//            if (mwSignal != null) {
-//                mwSignal.dispose();
-//            }
-//            rAlgorithm.dispose();
-//        }
         logger.debug("finished");
         super.process(request, response);
     }
@@ -94,6 +68,37 @@ public class FilterProcessor extends Processor {
             result.add(signal.get(i));
         }
         return result;
+    }
+
+    @SuppressWarnings("Duplicates")
+    private List<Integer> matlabFilter(List<Integer> signal) {
+        RLabrary rAlgorithm;
+        List<Integer> resultSignal = null;
+        try {
+            rAlgorithm = RAlgorithmFactory.getRAlgorithm();
+        } catch (MWException e) {
+            logger.error(e);
+            return null;
+        }
+        MWNumericArray mwSignal = null;
+        Object[] result;
+        try {
+            result = rAlgorithm.Lvbo(1, new Object[]{signal.toArray()});
+            mwSignal = (MWNumericArray) result[0];
+            resultSignal = new ArrayList<>();
+            for (int i : mwSignal.getIntData()) {
+                signal.add(i);
+            }
+            logger.debug("signal size : " + signal.size());
+        } catch (MWException e) {
+            logger.error(e);
+        } finally {
+            if (mwSignal != null) {
+                mwSignal.dispose();
+            }
+            rAlgorithm.dispose();
+        }
+        return resultSignal;
     }
 
 }

@@ -9,7 +9,12 @@ import org.apache.logging.log4j.Logger;
 import java.util.Comparator;
 import java.util.List;
 
-public class UpdateProcessor extends Processor {
+/**
+ * UpdateProcessor将依照请求中的信息更新响应的R点数据项
+ * <p>
+ * {@link RWaveModification}
+ */
+public final class UpdateProcessor extends Processor {
     private Logger logger = LogManager.getLogger();
 
     @Override

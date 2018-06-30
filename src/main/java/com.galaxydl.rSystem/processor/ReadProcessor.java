@@ -12,7 +12,14 @@ import org.apache.logging.log4j.Logger;
 
 import static com.galaxydl.rSystem.bean.ResponseCode.*;
 
-public class ReadProcessor extends Processor {
+/**
+ * ReadProcessor将请求中所请求的数据项从持久层读入
+ * 并将其置入响应中
+ * <p>
+ * {@link ECGPersistenceHelper}
+ * {@link RWavePersistenceHelper}
+ */
+public final class ReadProcessor extends Processor {
     private IPersistenceHelper<ECG> ecgPersistenceHelper = ECGPersistenceHelper.getHelper();
     private IPersistenceHelper<RWave> rWavePersistenceHelper = RWavePersistenceHelper.getHelper();
     private Logger logger = LogManager.getLogger();

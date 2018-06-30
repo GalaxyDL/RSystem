@@ -11,6 +11,9 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * SqlSessionFactoryHelper创建并管理数据库会话
+ */
 public final class SqlSessionFactoryHelper {
     private static final String CONFIGURATION = "mybatis-config.xml";
     private static SqlSessionFactory factory;

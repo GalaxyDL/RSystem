@@ -13,7 +13,14 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-public class RWaveFileHandler extends BaseFileHandler<RWave> {
+/**
+ * RWaveFileHandler提供R点数据进行持久化操作
+ * 此类为单例类
+ * 获取引用调用{@code RWaveFileHandler.getHandler();}
+ * <p>
+ * {@link BaseFileHandler}
+ */
+public final class RWaveFileHandler extends BaseFileHandler<RWave> {
     private static final String EXTENSION = ".RW";
     private static final RWaveFileHandler INSTANCE = new RWaveFileHandler();
     private final ConcurrentHashMap<Integer, ReadWriteLock> locks;

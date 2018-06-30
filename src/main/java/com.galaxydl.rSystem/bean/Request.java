@@ -3,6 +3,20 @@ package com.galaxydl.rSystem.bean;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * Request是一个HTTP请求的内部抽象
+ * 系统内部的请求全部通过此类对象表示
+ * <p>
+ * Request对象的构建采用了Builder模式
+ * 示例如下
+ * {@code Request request
+ * = new Request.Builder()
+ * .method(METHOD_GET)
+ * .target(TARGET_EGC)
+ * .arg(id)
+ * .build();
+ * }
+ */
 public final class Request {
     private static final ArrayList<String> EMPTY_ARGS = new ArrayList<>();
     private static final ArrayList<File> EMPTY_FILES = new ArrayList<>();

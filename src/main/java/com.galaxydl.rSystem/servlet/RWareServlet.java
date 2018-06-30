@@ -1,6 +1,7 @@
 package com.galaxydl.rSystem.servlet;
 
 import com.alibaba.fastjson.JSON;
+import com.galaxydl.rSystem.bean.RWave;
 import com.galaxydl.rSystem.bean.RWaveModification;
 import com.galaxydl.rSystem.bean.Request;
 import com.galaxydl.rSystem.bean.Response;
@@ -19,7 +20,13 @@ import java.util.Scanner;
 
 import static com.galaxydl.rSystem.bean.Request.*;
 
-public class RWareServlet extends HttpServlet {
+/**
+ * RWareServlet 是对于R点数据请求的统一入口
+ * url /r
+ * GET {@link RWareServlet#doGet(HttpServletRequest, HttpServletResponse)}
+ * POST {@link RWareServlet#doPost(HttpServletRequest, HttpServletResponse)}
+ */
+public final class RWareServlet extends HttpServlet {
     private IService service;
     private Logger logger = LogManager.getLogger();
 
@@ -28,6 +35,19 @@ public class RWareServlet extends HttpServlet {
         service = Service.getInstance();
     }
 
+    /**
+     * GET /r?id=id
+     * 返回JSON格式的R点数据
+     * 正常响应码200
+     * 如果所请求的id不存在则返回null
+     * 响应码为404
+     * {@link RWave}
+     *
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter writer = resp.getWriter();
@@ -42,6 +62,18 @@ public class RWareServlet extends HttpServlet {
         logger.info("response of id : " + id + " length : " + body.length());
     }
 
+    /**
+     * POST /r?id=id
+     * 请求体中应以有SON格式的修改信息
+     * 详情见{@link RWaveModification}
+     * 若修改成功响应码为200
+     * 请求不存在的id则为404
+     *
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter writer = resp.getWriter();

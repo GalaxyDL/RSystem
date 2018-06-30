@@ -12,7 +12,14 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-public class ECGFileHandler extends BaseFileHandler<ECG> {
+/**
+ * ECGFileHandler提供对心电信号数据文件的读写功能
+ * 此类是一个单例类
+ * 获取引用调用{@code ECGFileHandler.getHandler();}
+ * <p>
+ * {@link BaseFileHandler}
+ */
+public final class ECGFileHandler extends BaseFileHandler<ECG> {
     private static final String EXTENSION = ".ECG";
     private static final ECGFileHandler INSTANCE = new ECGFileHandler();
     private final ConcurrentHashMap<Integer, ReadWriteLock> locks;

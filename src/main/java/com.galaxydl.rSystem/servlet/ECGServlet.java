@@ -1,6 +1,7 @@
 package com.galaxydl.rSystem.servlet;
 
 import com.alibaba.fastjson.JSON;
+import com.galaxydl.rSystem.bean.ECG;
 import com.galaxydl.rSystem.bean.Request;
 import com.galaxydl.rSystem.bean.Response;
 import com.galaxydl.rSystem.persistence.SqlSessionFactoryHelper;
@@ -24,7 +25,13 @@ import java.util.List;
 import static com.galaxydl.rSystem.bean.Request.*;
 import static com.galaxydl.rSystem.bean.ResponseCode.*;
 
-public class ECGServlet extends HttpServlet {
+/**
+ * ECGServlet 是对于心电信号请求的统一入口
+ * url /ecg
+ * GET {@link ECGServlet#doGet(HttpServletRequest, HttpServletResponse)}
+ * POST {@link ECGServlet#doPost(HttpServletRequest, HttpServletResponse)}
+ */
+public final class ECGServlet extends HttpServlet {
     private String tempPath;
     private static final String TEMP_DIRECTORY_CAN_NOT_BE_CREATED = "temp directory cannot be created!";
     private File tempDirectory;
@@ -51,6 +58,18 @@ public class ECGServlet extends HttpServlet {
         SqlSessionFactoryHelper.init();
     }
 
+    /**
+     * GET /ecg?id=id
+     * 返回JSON格式的心电信号
+     * 正常响应码为200
+     * 若请求的id不存在则返回404
+     * {@link ECG}
+     *
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("path : " + System.getProperty("user.dir"));
@@ -66,6 +85,18 @@ public class ECGServlet extends HttpServlet {
         logger.info("response of id : " + id + " length : " + body.length());
     }
 
+    /**
+     * POST /ecg
+     * 请求体内应该存在一个文件
+     * 正常处理响应码为200
+     * 文件错误响应码为400
+     * 处理过程发生错误响应码为500
+     *
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("new ecg file");

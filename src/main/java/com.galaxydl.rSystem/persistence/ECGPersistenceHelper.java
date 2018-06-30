@@ -5,6 +5,15 @@ import com.galaxydl.rSystem.persistence.dao.FilenameDAO;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+/**
+ * ECGPersistenceHelper提供对心电信号数据的持久化操作
+ * 此类是一个单例类
+ * 获取引调用{@code ECGPersistenceHelper.getHelper();}
+ * <p>
+ * {@link ECG}
+ * {@link ECGPersistenceHelper}
+ * {@link SqlSessionFactory}
+ */
 public final class ECGPersistenceHelper implements IPersistenceHelper<ECG> {
     private IFileHandler<ECG> fileHandler;
     private SqlSessionFactory sqlSessionFactory;

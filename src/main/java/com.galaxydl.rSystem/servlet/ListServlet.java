@@ -19,7 +19,12 @@ import java.util.List;
 import static com.galaxydl.rSystem.bean.Request.METHOD_GET;
 import static com.galaxydl.rSystem.bean.Request.TARGET_LIST_EGCS;
 
-public class ListServlet extends HttpServlet {
+/**
+ * ListServlet是心电信号列表的接口入口
+ * url /list
+ * GET {@link ListServlet#doGet(HttpServletRequest, HttpServletResponse)}
+ */
+public final class ListServlet extends HttpServlet {
     private IService service;
     private Logger logger = LogManager.getLogger();
 
@@ -28,6 +33,16 @@ public class ListServlet extends HttpServlet {
         service = Service.getInstance();
     }
 
+    /**
+     * GET /list
+     * 正常情况下返回JSON格式的id数组和文件名数组
+     * 状态码200
+     *
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter writer = resp.getWriter();

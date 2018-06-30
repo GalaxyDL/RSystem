@@ -49,6 +49,7 @@ function send_form() {
         location.reload();
     }
 }
+
 var Rpoints = [];
 
 function request_result(file_name) {

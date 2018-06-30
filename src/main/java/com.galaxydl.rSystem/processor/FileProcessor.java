@@ -19,7 +19,11 @@ import java.util.Scanner;
 import static com.galaxydl.rSystem.bean.ResponseCode.BAD_REQUEST;
 import static com.galaxydl.rSystem.bean.ResponseCode.INTERNAL_SERVER_ERROR;
 
-public class FileProcessor extends Processor {
+/**
+ * FileProcessor 读取请求体携带的文件中的心电信号数据
+ * 并写入响应中以待处理
+ */
+public final class FileProcessor extends Processor {
     private Logger logger = LogManager.getLogger();
 
     @Override
@@ -54,6 +58,11 @@ public class FileProcessor extends Processor {
         return result;
     }
 
+    /**
+     * 获取可用的id
+     *
+     * @return
+     */
     private int getEcgId() {
         IPersistenceHelper<List<Integer>> listPersistenceHelper = SignalListPersistenceHelper.getHelper();
         List<Integer> list = listPersistenceHelper.query(0);

@@ -7,7 +7,15 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import java.util.List;
 
-public class FilenameListPersistenceHelper implements IPersistenceHelper<List<String>> {
+/**
+ * FilenameListPersistenceHelper对文件名列表进行持久化操作
+ * 此类是一个单例类
+ * 获取引调用{@code FilenameListPersistenceHelper.getHelper();}
+ * <p>
+ * {@link SqlSessionFactory}
+ * {@link FilenameDAO}
+ */
+public final class FilenameListPersistenceHelper implements IPersistenceHelper<List<String>> {
     private SqlSessionFactory sqlSessionFactory;
     private static final FilenameListPersistenceHelper INSTANCE = new FilenameListPersistenceHelper();
 
