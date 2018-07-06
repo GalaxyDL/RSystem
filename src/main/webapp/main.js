@@ -236,14 +236,16 @@ function send_r() {
     $.ajax({
         url: window.location.pathname + "r?id=" + index,
         type: "POST",
-        dataType: "JSON",
         data: json,
         contentType: false,
         processData: false,
         success: function (rst) {
-            alert("state=" + rst.state);
+            console.log("state=" + rst.state);
             insert.splice(0, insert.length);
             del.splice(0, del.length);
+        },
+        error: function () {
+            console.log(arguments[1]);
         }
 
     });
